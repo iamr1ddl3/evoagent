@@ -1,0 +1,190 @@
+{
+  "model": "anthropic/claude-haiku-4-5",
+  "metric": "judge",
+  "n_specs": 10,
+  "mean_score": 0.8667,
+  "pass_rate": 1.0,
+  "total_latency_ms": 84158,
+  "per_spec": [
+    {
+      "id": "easy/python/clamp",
+      "difficulty": "easy",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 9863,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 1.0,
+      "rationales": {
+        "spec_coverage": "The plan explicitly maps all spec requirements: T1 implements the clamp function with correct behavior for all three cases (x < low, x > high, x in range), and T2 implements the required 2 pytest tests.",
+        "task_atomicity": "T1 (implementation) and T2 (testing) are cleanly separated with no state sharing; T1 can be completed independently, and T2 depends only on the artifact from T1 without circular dependencies or overlap.",
+        "acceptance_testability": "All acceptance criteria are deterministic assertions: T1's AC specifies exact outputs for three concrete inputs (clamp(5,0,10)==5, etc.), and T2's AC is verifiable by running pytest, making both fully checkable without ambiguity."
+      }
+    },
+    {
+      "id": "easy/python/is_palindrome",
+      "difficulty": "easy",
+      "language": "python",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 6832,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 0.75,
+      "rationales": {
+        "spec_coverage": "The plan explicitly addresses all three spec requirements: implementing `is_palindrome(s: str) -> bool`, handling case-insensitivity and non-alphanumeric filtering, and including 3 pytest tests with clear coverage areas.",
+        "task_atomicity": "T1 and T2 are cleanly separated: T1 focuses solely on function implementation, T2 focuses solely on writing and validating tests; neither task depends on the other's internal logic and both can be developed independently before integration.",
+        "acceptance_testability": "The function-level AC in T1 is fully testable via assertions (alphanumeric filtering, lowercase conversion, palindrome check), and T2's AC is verifiable by pytest execution; however, the run-level AC about 'PEP 8 conventions' is somewhat subjective without specifying a linter tool."
+      }
+    },
+    {
+      "id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 7168,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 0.75,
+      "rationales": {
+        "spec_coverage": "The plan maps all explicit spec requirements (function implementation, 2 Jest tests, TypeScript, array chunking logic) to concrete tasks with clear acceptance criteria; minor gap is that the spec doesn't explicitly demand edge-case handling, though the plan wisely includes it.",
+        "task_atomicity": "Tasks T1 and T2 are nearly independent\u2014T1 implements the function, T2 tests it\u2014with only a logical dependency (T2 requires T1's output); both can be worked in parallel or sequentially without resource conflicts or state entanglement.",
+        "acceptance_testability": "T1's AC is concrete and verifiable (specific array \u2192 specific output); T2's AC is clear (tests pass); run-level ACs are mostly deterministic, though 'handles gracefully' in the edge-case criterion is slightly subjective\u2014a stricter formulation would specify exact error-handling behavior (throw vs. return empty vs. return as-is)."
+      }
+    },
+    {
+      "id": "medium/python/lru_cache",
+      "difficulty": "medium",
+      "language": "python",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "n_tasks": 4,
+      "error": null,
+      "latency_ms": 7910,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "rationales": {
+        "spec_coverage": "The plan explicitly maps every requirement from the spec: LRUCache class implementation (T1), O(1) operations via OrderedDict, three pytest tests covering eviction (T2), hit (T3), and miss (T4), and run-level acceptance criteria confirm pytest execution.",
+        "task_atomicity": "Tasks T2, T3, T4 are independent test modules that can run in parallel, but T2\u2013T4 all depend on T1's implementation being correct and importable; the implementation itself (T1) is self-contained, so parallelism is achievable after T1 completes but not full zero-dependency parallelism.",
+        "acceptance_testability": "T2, T3, T4 have explicit, deterministic assertions (return values, eviction verification), but T1's AC ('run without errors on basic operations') is vague and could benefit from more specific assertions about O(1) complexity or exact return values; overall most ACs are checkable via pytest execution."
+      }
+    },
+    {
+      "id": "medium/typescript/debounce",
+      "difficulty": "medium",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.6666666666666666,
+      "n_tasks": 3,
+      "error": null,
+      "latency_ms": 9062,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.5,
+      "rationales": {
+        "spec_coverage": "The plan covers the core requirement (generic debounce function) and both test requirements, but does not explicitly address edge cases like return type preservation in practice, nor does it detail how the function signature constraint `F` is actually enforced or tested.",
+        "task_atomicity": "T1 (implementation) is self-contained, and T2 and T3 (tests) are independent of each other and can run in parallel; however, T2 and T3 both depend on T1's successful implementation, creating a logical dependency that limits true parallelism.",
+        "acceptance_testability": "T1's acceptance criterion is vague ('compiles without type errors, delays execution') and relies on implicit understanding; T2 and T3's ACs are more concrete but still lack explicit assertions about argument-type preservation or edge cases like return value handling and clearing pending timers on new calls."
+      }
+    },
+    {
+      "id": "medium/python/flatten",
+      "difficulty": "medium",
+      "language": "python",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "n_tasks": 4,
+      "error": null,
+      "latency_ms": 8024,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 1.0,
+      "rationales": {
+        "spec_coverage": "The plan explicitly maps all spec requirements: the flatten function with recursive behavior (T1), empty list test (T2), deep nesting test (T3), and mixed-type test (T4), plus run-level acceptance criteria confirming all tasks and tests.",
+        "task_atomicity": "Tasks T2, T3, and T4 depend on T1's implementation to pass, but they are otherwise self-contained test units that can be written and executed independently once the function exists; T1 itself is a single coherent unit with no internal task splitting.",
+        "acceptance_testability": "Every acceptance criterion is deterministic and checkable: function existence, parameter/return types, specific input/output pairs (empty \u2192 empty, nested numbers \u2192 flat, mixed types \u2192 preserved), test execution status, and syntax validity are all objectively verifiable assertions."
+      }
+    },
+    {
+      "id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 6802,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 1.0,
+      "rationales": {
+        "spec_coverage": "The plan explicitly maps both core requirements: T1 covers the `groupBy(arr, keyFn)` function implementation with full detail, and T2 covers the 2 Jest tests with two distinct use cases (object property and string/computed key), matching the spec exactly.",
+        "task_atomicity": "T1 and T2 are cleanly separated: T1 produces a working implementation, and T2 consumes it to write tests. They have no shared state, no overlapping responsibilities, and can be executed sequentially or in parallel without interference.",
+        "acceptance_testability": "All acceptance criteria are deterministic and testable: function existence and parameter acceptance are checkable via introspection, correct grouping behavior is verifiable via Jest assertions, and test execution status is binary (pass/fail)."
+      }
+    },
+    {
+      "id": "hard/python/topological_sort",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "n_tasks": 5,
+      "error": null,
+      "latency_ms": 10440,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 1.0,
+      "rationales": {
+        "spec_coverage": "The plan explicitly maps all four required test cases (linear chain, diamond, cycle with ValueError, disconnected components) to individual tasks T2\u2013T5, plus the core implementation in T1, covering every stated requirement.",
+        "task_atomicity": "Each test task (T2\u2013T5) is self-contained and parallelizable; however, all test tasks depend on T1 (the implementation) being complete first, creating a sequential bottleneck rather than true independence.",
+        "acceptance_testability": "All acceptance criteria are deterministic and directly verifiable: function signature match, specific graph orderings, ValueError raising on cycles, and test pass/fail outcomes are all single assertions or pytest assertions."
+      }
+    },
+    {
+      "id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.6666666666666666,
+      "n_tasks": 5,
+      "error": null,
+      "latency_ms": 9856,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.5,
+      "rationales": {
+        "spec_coverage": "The plan covers the core class structure, all four required test scenarios (exhaustion, refill, partial consume, concurrent monotonic), and monotonic clock usage. However, it doesn't explicitly specify the internal state tracking mechanism (e.g., last_refill_time, current_tokens) or the exact refill formula, leaving some implementation details ambiguous.",
+        "task_atomicity": "Tasks T2\u2013T5 (the tests) are independent and can run in parallel, but T1 (the class implementation) is a hard dependency for all tests. The tests themselves don't share state, but they all depend on a single shared implementation task, preventing true parallelism of the full task set.",
+        "acceptance_testability": "T1's AC is somewhat vague ('returns True when tokens available...accounting for refill logic') without specifying the exact refill formula or edge cases; T3's 'timing constraints are validated' is aspirational without defining acceptable tolerances; T5's 'behavior is predictable under load' and 'no time reversions' are loose assertions. The test ACs in T2\u2013T4 are more concrete but still lack specifics (e.g., exact refill timing, token counts, sleep durations)."
+      }
+    },
+    {
+      "id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 8196,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "rationales": {
+        "spec_coverage": "The plan explicitly addresses all spec requirements: generic EventEmitter<E> class, on/off/emit methods with proper typing, type-safe argument matching, and 3 Jest tests covering the core functionality.",
+        "task_atomicity": "T1 (implementation) and T2 (tests) are largely independent, but T2 has an implicit dependency on T1's successful completion and correct API design, which creates minor coupling that prevents perfect parallelization.",
+        "acceptance_testability": "Most ACs are checkable (TypeScript compilation, test execution, method callability), though 'proper type inference' in the run-level AC is somewhat subjective and would benefit from explicit examples of valid/invalid emit calls that should be caught by the type system."
+      }
+    }
+  ]
+}

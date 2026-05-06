@@ -1,0 +1,26 @@
+.env
+.env.local
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.DS_Store
+# Reports are runtime artifacts BUT specific evidence files are tracked.
+# Future daily HTML reports are excluded by default — except Day 9's
+# before_after.html which is a deliberate portfolio artifact.
+reports/*.html
+!reports/.gitkeep
+!reports/reflector.json
+!reports/reflector_day9.json
+!reports/baseline_planner.json
+!reports/baseline_judge_haiku.json
+!reports/mipro_run.json
+!reports/benchmark_compare.json
+!reports/before_after.html
+
+# MIPRO compiled programs: the Day 9 v1 is committed as methodology
+# evidence. Future compile artifacts are excluded by default.
+optimized_programs/*.json
+optimized_programs/*.pkl
+!optimized_programs/planner_haiku_v1.json

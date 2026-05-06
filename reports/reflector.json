@@ -1,0 +1,74 @@
+{
+  "modes": [
+    {
+      "agent": "Planner",
+      "failure_class": "BadRequestError",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "4c3e1883df468dcef4b3af32133d0021"
+      ],
+      "diagnosis": "The Orchestrator passed a `temperature` parameter to a model that no longer accepts it, resulting in a 400 invalid_request_error. This indicates the pipeline is unconditionally forwarding deprecated sampling parameters regardless of the target model's capabilities.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "NEVER include the `temperature` parameter when invoking models that do not support it (e.g., o-series or reasoning models). Before dispatching any model call, check the model identifier: if it matches a known reasoning/o-series model (e.g., names containing 'o1', 'o3', or 'reasoning'), omit `temperature` and any other deprecated sampling fields entirely from the request payload.",
+        "rationale": "Explicitly prohibiting deprecated parameters for incompatible models prevents the 400 BadRequestError caused by sending `temperature` to models that have dropped support for it."
+      }
+    },
+    {
+      "agent": "QualityGate",
+      "failure_class": "ValueError",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "6502f4bdf7213130f3dd18fd8dbf9280"
+      ],
+      "diagnosis": "The QualityGate agent returned a free-form markdown analysis instead of the required JSON response, causing a JSON parse failure (non-JSON output starting with 'Analyzing the implementation...'). The agent's prompt does not enforce strict JSON-only output, allowing it to default to natural-language prose.",
+      "proposed_edit": {
+        "target_section": "format",
+        "new_text": "Your response MUST be valid JSON and nothing else. Do not include any prose, markdown, bullet points, headers, or explanation outside the JSON structure. The very first character of your response must be `{` and the last must be `}`. If you need to explain findings, encode them as string values within the JSON fields (e.g., `\"notes\": \"...\"`). Any response that is not pure JSON will be treated as a hard failure.",
+        "rationale": "Mandating that the first and last characters are JSON delimiters and banning all prose outside JSON fields prevents the agent from returning free-form markdown that causes the downstream JSON parser to throw a ValueError."
+      }
+    },
+    {
+      "agent": "Planner",
+      "failure_class": "AgentFailure",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "4c3e1883df468dcef4b3af32133d0021",
+        "6502f4bdf7213130f3dd18fd8dbf9280"
+      ],
+      "diagnosis": "The Orchestrator propagated two distinct AgentFailure events: one caused by the upstream temperature BadRequestError and one caused by a downstream non-JSON response from QualityGate. The Orchestrator lacks retry logic and structured error-handling rules that would catch these failures and either retry with corrected parameters or surface a structured error rather than crashing.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "When any downstream agent or model call raises an error, apply the following recovery strategy before propagating a failure: (1) If the error is a 400 invalid_request_error mentioning a deprecated parameter, strip that parameter and retry the call exactly once. (2) If a downstream agent returns non-JSON output, re-invoke that agent with the explicit instruction: 'Your previous response was not valid JSON. Return ONLY valid JSON matching the required schema \u2014 no prose, no markdown.' and retry exactly once. (3) If the retry also fails, emit a structured AgentFailure JSON object with fields `{\"agent\": \"<name>\", \"error_class\": \"<class>\", \"message\": \"<detail>\"}` and halt the pipeline gracefully.",
+        "rationale": "Codifying explicit one-retry recovery steps for both deprecated-parameter errors and non-JSON responses prevents silent AgentFailure propagation and makes the Orchestrator resilient to the two observed failure sub-types."
+      }
+    },
+    {
+      "agent": "Planner",
+      "failure_class": "RuntimeError",
+      "frequency": 1,
+      "evidence_trace_ids": [
+        "035cb2bbf7c7914a8be1f4f44fb57196"
+      ],
+      "diagnosis": "An agent named 'boom' raised an intentional RuntimeError labelled 'intentional smoke failure', which was not caught by the Orchestrator and surfaced as an unhandled pipeline crash. The Orchestrator has no rule for catching unexpected RuntimeErrors from agent nodes and converting them into structured, recoverable failure signals.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "Wrap every agent invocation in a top-level error boundary. If any agent raises an unexpected RuntimeError (or any unchecked exception), catch it immediately and emit a structured failure record: `{\"agent\": \"<name>\", \"error_class\": \"RuntimeError\", \"message\": \"<exception message>\", \"trace_id\": \"<current trace id>\"}`, then halt the current pipeline run cleanly without re-raising. Never allow an unhandled RuntimeError from a single agent to crash the entire Orchestrator process.",
+        "rationale": "A mandatory top-level error boundary ensures that intentional or unexpected RuntimeErrors from any agent node are caught, logged as structured records, and do not propagate as unhandled exceptions that crash the pipeline."
+      }
+    }
+  ],
+  "summary": "Four distinct failure modes were identified across the Orchestrator and QualityGate: (1) deprecated `temperature` parameters being sent to incompatible models, (2) the QualityGate returning free-form markdown instead of JSON, (3) the Orchestrator lacking retry/recovery logic for both of the above, and (4) unhandled RuntimeErrors from agent nodes crashing the pipeline. The proposed edits introduce parameter sanitisation before model calls, strict JSON-only output enforcement in QualityGate, structured one-retry recovery logic in the Orchestrator, and a mandatory top-level error boundary to prevent any single agent failure from bringing down the entire pipeline.",
+  "_meta": {
+    "n_observations": 7,
+    "n_groups": 4,
+    "model": "claude-sonnet-4-6",
+    "usage": {
+      "input": 1200,
+      "output": 1523,
+      "total": 2723
+    },
+    "latency_ms": 26113,
+    "since_seconds": 604800
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "model": "anthropic/claude-haiku-4-5",
+  "metric": "composite_plan_score (judge)",
+  "num_trials": 10,
+  "num_candidates": 6,
+  "max_bootstrapped_demos": 4,
+  "train_size": 6,
+  "val_size": 4,
+  "elapsed_sec": 173.5,
+  "best_score_train": 90.28,
+  "trial_full_eval_scores": [87.5, 88.89, 87.5, 90.28, 83.33, 91.67, 90.28, 56.94, 69.44, 86.11, 73.61, 48.61, 88.89],
+  "trial_full_eval_scores_note": "Captured from compile log. Trials 8-12 hit Anthropic rate limits (50K tokens/min, 50 req/min) producing artificial dips (56.94, 69.44, 73.61, 48.61). Best score 90.28 from Trial 4/7 (rate-limit-clean).",
+  "rate_limit_observed": true,
+  "rate_limit_details": "Anthropic 50K input tokens/min and 50 req/min on claude-haiku-4-5. Affected trials returned 0.5 baseline-on-failure for 1-2 specs each. Honest noise in optimization signal; mitigated by best-trial-so-far selection.",
+  "train_baseline_score": 87.5,
+  "train_optimized_score": 90.28,
+  "train_delta": 2.78,
+  "train_delta_note": "On the train set, MIPRO improved score by 2.78 percentage points (87.5 -> 90.28). Held-out validation runs in benchmark_compare.py to measure generalization."
+}

@@ -1,0 +1,435 @@
+{
+  "n_trials": 3,
+  "held_out_spec_ids": [
+    "easy/typescript/chunk",
+    "medium/javascript/groupBy",
+    "hard/python/rate_limiter",
+    "hard/typescript/event_emitter"
+  ],
+  "records": [
+    {
+      "variant": "baseline_haiku",
+      "trial": 1,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 46
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 1,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 1.0,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 1.0,
+      "n_tasks": 2,
+      "latency_ms": 6
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 1,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.6666666666666666,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.5,
+      "n_tasks": 5,
+      "latency_ms": 6
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 1,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 6
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 2,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 2,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 1.0,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 1.0,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 2,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.6666666666666666,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.5,
+      "n_tasks": 5,
+      "latency_ms": 4
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 2,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 4
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 3,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.9166666666666666,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 4
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 3,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 1.0,
+      "spec_coverage": 1.0,
+      "task_atomicity": 1.0,
+      "acceptance_testability": 1.0,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 3,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.6666666666666666,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.5,
+      "n_tasks": 5,
+      "latency_ms": 5
+    },
+    {
+      "variant": "baseline_haiku",
+      "trial": 3,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 1,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.75,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 6
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 1,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 1,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 5,
+      "latency_ms": 6
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 1,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 4,
+      "latency_ms": 6
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 2,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.75,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 3
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 2,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 5
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 2,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 5,
+      "latency_ms": 5
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 2,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 4,
+      "latency_ms": 5
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 3,
+      "spec_id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.75,
+      "spec_coverage": 0.75,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 6
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 3,
+      "spec_id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 2,
+      "latency_ms": 6
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 3,
+      "spec_id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 5,
+      "latency_ms": 3
+    },
+    {
+      "variant": "optimized_haiku",
+      "trial": 3,
+      "spec_id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 0.8333333333333334,
+      "spec_coverage": 1.0,
+      "task_atomicity": 0.75,
+      "acceptance_testability": 0.75,
+      "n_tasks": 4,
+      "latency_ms": 6
+    }
+  ],
+  "aggregate": {
+    "cell_stats": {
+      "baseline_haiku::easy/typescript/chunk": {
+        "mean": 0.9167,
+        "std": 0.0,
+        "scores": [
+          0.9167,
+          0.9167,
+          0.9167
+        ]
+      },
+      "baseline_haiku::medium/javascript/groupBy": {
+        "mean": 1.0,
+        "std": 0.0,
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "baseline_haiku::hard/python/rate_limiter": {
+        "mean": 0.6667,
+        "std": 0.0,
+        "scores": [
+          0.6667,
+          0.6667,
+          0.6667
+        ]
+      },
+      "baseline_haiku::hard/typescript/event_emitter": {
+        "mean": 0.8333,
+        "std": 0.0,
+        "scores": [
+          0.8333,
+          0.8333,
+          0.8333
+        ]
+      },
+      "optimized_haiku::easy/typescript/chunk": {
+        "mean": 0.75,
+        "std": 0.0,
+        "scores": [
+          0.75,
+          0.75,
+          0.75
+        ]
+      },
+      "optimized_haiku::medium/javascript/groupBy": {
+        "mean": 0.8333,
+        "std": 0.0,
+        "scores": [
+          0.8333,
+          0.8333,
+          0.8333
+        ]
+      },
+      "optimized_haiku::hard/python/rate_limiter": {
+        "mean": 0.8333,
+        "std": 0.0,
+        "scores": [
+          0.8333,
+          0.8333,
+          0.8333
+        ]
+      },
+      "optimized_haiku::hard/typescript/event_emitter": {
+        "mean": 0.8333,
+        "std": 0.0,
+        "scores": [
+          0.8333,
+          0.8333,
+          0.8333
+        ]
+      }
+    },
+    "variant_stats": {
+      "baseline_haiku": {
+        "mean": 0.8542,
+        "std": 0.1233,
+        "n": 12
+      },
+      "optimized_haiku": {
+        "mean": 0.8125,
+        "std": 0.0361,
+        "n": 12
+      }
+    }
+  }
+}

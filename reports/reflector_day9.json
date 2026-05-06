@@ -1,0 +1,74 @@
+{
+  "modes": [
+    {
+      "agent": "QualityGate",
+      "failure_class": "json-format",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "6502f4bdf7213130f3dd18fd8dbf9280"
+      ],
+      "diagnosis": "The QualityGate agent returned a free-form markdown analysis instead of a valid JSON object. The model produced prose beginning with 'Analyzing the implementation...' rather than a structured JSON response, causing the downstream parser to raise a ValueError on an empty/non-JSON string.",
+      "proposed_edit": {
+        "target_section": "format",
+        "new_text": "CRITICAL: Your response MUST be valid JSON and nothing else. Do not include any prose, markdown, bullet points, or explanatory text outside the JSON object. Do not wrap the JSON in code fences. Your entire response must start with `{` and end with `}`. Any analysis or reasoning must be placed inside designated JSON fields (e.g., `\"reasoning\": \"...\"`).",
+        "rationale": "Explicitly forbidding non-JSON output and requiring the response to start with `{` prevents the model from defaulting to markdown prose, eliminating the ValueError from the JSON parser."
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "failure_class": "AgentFailure",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "6502f4bdf7213130f3dd18fd8dbf9280",
+        "4c3e1883df468dcef4b3af32133d0021"
+      ],
+      "diagnosis": "The Orchestrator experienced two distinct upstream failures that it propagated as AgentFailure: once because the QualityGate sub-agent returned non-JSON prose, and once because it passed a deprecated `temperature` parameter to a model that no longer accepts it. In both cases the Orchestrator did not handle or retry the sub-agent error gracefully.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "When invoking sub-agents or model APIs, apply the following error-handling rules: (1) If a sub-agent returns a non-JSON or malformed response, retry the sub-agent call up to 2 times with an explicit reminder appended to the prompt: 'Your response MUST be valid JSON only.' Log the failure and surface a structured error object if retries are exhausted. (2) Never pass the `temperature` parameter to models that do not support it (e.g., o-series or reasoning models). Before constructing an API call, check the target model's capability profile and omit `temperature` if the model is flagged as not supporting it.",
+        "rationale": "Separating retry logic for non-JSON sub-agent responses and removing the deprecated `temperature` parameter for incompatible models addresses both distinct root causes that produced AgentFailure in the Orchestrator."
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "failure_class": "BadRequestError",
+      "frequency": 2,
+      "evidence_trace_ids": [
+        "4c3e1883df468dcef4b3af32133d0021"
+      ],
+      "diagnosis": "The Orchestrator sent a `temperature` parameter to a model that has deprecated it, resulting in a 400 invalid_request_error from the API. The Orchestrator's prompt or configuration does not account for model-specific API constraints, causing it to blindly forward parameters that are unsupported.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "Before making any model API call, consult the model's capability profile. If the target model does not support the `temperature` parameter (including but not limited to o1, o3, and other reasoning-class models), omit `temperature` from the request payload entirely. Maintain an internal list of parameter exclusions per model family and apply them automatically during request construction to prevent BadRequestError responses.",
+        "rationale": "Explicitly instructing the Orchestrator to omit unsupported parameters like `temperature` based on model capability profiles prevents the 400 BadRequestError caused by passing deprecated API fields."
+      }
+    },
+    {
+      "agent": "boom",
+      "failure_class": "RuntimeError",
+      "frequency": 1,
+      "evidence_trace_ids": [
+        "035cb2bbf7c7914a8be1f4f44fb57196"
+      ],
+      "diagnosis": "The 'boom' agent raised an intentional RuntimeError labeled 'intentional smoke failure', indicating this is a deliberate test/smoke-check agent that is expected to fail. However, it propagates an unhandled RuntimeError rather than returning a structured failure signal, which may disrupt the pipeline.",
+      "proposed_edit": {
+        "target_section": "rules",
+        "new_text": "If this agent is invoked as a smoke test or intentional failure probe, catch all internal RuntimeErrors and return a structured JSON error object instead of propagating the raw exception. The response format must be: `{\"status\": \"error\", \"agent\": \"boom\", \"error_class\": \"RuntimeError\", \"message\": \"<original error message>\"}`. This ensures the pipeline receives a parseable signal rather than an unhandled exception.",
+        "rationale": "Wrapping intentional RuntimeErrors in a structured JSON response prevents unhandled exceptions from propagating through the pipeline and ensures the smoke failure is observable in a controlled, parseable format."
+      }
+    }
+  ],
+  "summary": "The dominant failure mode is the QualityGate agent returning unstructured markdown prose instead of JSON, which cascades into Orchestrator AgentFailure. A second independent Orchestrator failure stems from passing the deprecated `temperature` parameter to an incompatible model, requiring model-capability-aware request construction. A minor isolated smoke-test failure in the 'boom' agent should be wrapped in structured JSON to avoid unhandled exception propagation.",
+  "_meta": {
+    "n_observations": 7,
+    "n_groups": 4,
+    "model": "claude-sonnet-4-6",
+    "usage": {
+      "input": 1200,
+      "output": 1409,
+      "total": 2609
+    },
+    "latency_ms": 24128,
+    "since_seconds": 172800
+  }
+}

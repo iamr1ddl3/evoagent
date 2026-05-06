@@ -1,0 +1,157 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "spec": "Write a Python function `clamp(x: float, low: float, high: float) -> float` that bounds x to [low, high]. Include 2 pytest tests.",
+        "plan": {
+          "tasks": [
+            {
+              "id": "T1",
+              "description": "Implement the clamp(x: float, low: float, high: float) -> float function that bounds x to the range [low, high]. Return low if x < low, high if x > high, otherwise return x.",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Function clamp is defined and returns correct values: clamp(5, 0, 10) == 5, clamp(-5, 0, 10) == 0, clamp(15, 0, 10) == 10"
+            },
+            {
+              "id": "T2",
+              "description": "Write 2 pytest test cases for the clamp function: one test for a value within bounds, and one test for a value outside bounds (either below or above).",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Two pytest tests pass: pytest runs without errors and both test cases execute successfully"
+            }
+          ],
+          "acceptance_criteria": [
+            "The clamp function is implemented correctly and handles all three cases: x < low, x > high, and low <= x <= high",
+            "Both pytest tests pass and cover representative cases (in-range and out-of-range values)"
+          ]
+        }
+      },
+      {
+        "augmented": true,
+        "spec": "Write a Python function `is_palindrome(s: str) -> bool` ignoring case and non-alphanumerics. Include 3 pytest tests.",
+        "plan": {
+          "tasks": [
+            {
+              "id": "T1",
+              "description": "Implement the `is_palindrome(s: str) -> bool` function that checks if a string is a palindrome, ignoring case and non-alphanumeric characters",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Function accepts a string, filters to alphanumeric characters only, converts to lowercase, and returns True if the result reads the same forwards and backwards"
+            },
+            {
+              "id": "T2",
+              "description": "Write 3 pytest test cases covering: (1) a simple palindrome with mixed case and punctuation, (2) a non-palindrome string, and (3) an edge case (empty string or single character)",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "All 3 pytest tests pass when run against the `is_palindrome` function; tests validate correct behavior for palindromes, non-palindromes, and edge cases"
+            }
+          ],
+          "acceptance_criteria": [
+            "The `is_palindrome` function is defined and handles case-insensitivity and non-alphanumeric character filtering correctly",
+            "All 3 pytest tests execute successfully and pass",
+            "Code is syntactically valid Python and follows PEP 8 conventions"
+          ]
+        }
+      },
+      {
+        "augmented": true,
+        "spec": "Write a Python class `LRUCache` with O(1) `get(key)` and `put(key, value)`. Capacity is set on construction. Include 3 pytest tests covering eviction, hit, and miss.",
+        "plan": {
+          "tasks": [
+            {
+              "id": "T1",
+              "description": "Implement LRUCache class with __init__(capacity), get(key), and put(key, value) methods using OrderedDict and a dict for O(1) operations. get() returns -1 if key not found, put() evicts least-recently-used item when capacity exceeded.",
+              "language": "python",
+              "complexity": "medium",
+              "acceptance_criterion": "LRUCache class instantiates with capacity parameter, get() and put() methods exist and run without errors on basic operations"
+            },
+            {
+              "id": "T2",
+              "description": "Write pytest test_lru_cache_eviction() that verifies when capacity is exceeded, the least-recently-used item is evicted and no longer accessible via get()",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Test passes: after inserting items beyond capacity, oldest unused item returns -1 on get()"
+            },
+            {
+              "id": "T3",
+              "description": "Write pytest test_lru_cache_hit() that verifies get() returns the correct value when key exists and updates recency ordering",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Test passes: get() on existing key returns correct value and accessing it marks it as recently used"
+            },
+            {
+              "id": "T4",
+              "description": "Write pytest test_lru_cache_miss() that verifies get() returns -1 when key does not exist",
+              "language": "python",
+              "complexity": "easy",
+              "acceptance_criterion": "Test passes: get() on non-existent key returns -1"
+            }
+          ],
+          "acceptance_criteria": [
+            "LRUCache class with O(1) get() and put() operations is implemented and importable",
+            "All three pytest tests (eviction, hit, miss) pass without errors",
+            "Code executes: `python -m pytest -v` shows 3 passed"
+          ]
+        }
+      },
+      {
+        "augmented": true,
+        "spec": "Write a TypeScript generic function `debounce<F extends (...args: any[]) => any>(fn: F, ms: number): F` that returns a debounced version preserving argument types. Include 2 Jest tests using fake timers.",
+        "plan": {
+          "tasks": [
+            {
+              "id": "T1",
+              "description": "Implement the generic debounce function in TypeScript that accepts a function F and debounce delay in milliseconds, returning a debounced version of F with preserved argument and return types. Use a timer-based approach with closure to track pending calls.",
+              "language": "typescript",
+              "complexity": "medium",
+              "acceptance_criterion": "The debounce function compiles without type errors, accepts any function type, and delays execution by the specified milliseconds before invoking the original function"
+            },
+            {
+              "id": "T2",
+              "description": "Write a Jest test file with fake timers enabled that verifies the debounced function delays execution. Test should call the debounced function immediately and assert via jest.runAllTimers() that the original function is invoked after the specified delay.",
+              "language": "typescript",
+              "complexity": "easy",
+              "acceptance_criterion": "First Jest test passes, demonstrating that a debounced function with 300ms delay executes the original function only after advancing time by 300ms using fake timers"
+            },
+            {
+              "id": "T3",
+              "description": "Write a second Jest test file with fake timers that verifies the debounce cancellation behavior—calling the debounced function multiple times should only invoke the original function once after the final call's delay period.",
+              "language": "typescript",
+              "complexity": "easy",
+              "acceptance_criterion": "Second Jest test passes, demonstrating that calling a debounced function 3 times within the debounce window results in the original function being called exactly once, with argument types preserved from the final call"
+            }
+          ],
+          "acceptance_criteria": [
+            "The debounce function is exported and has correct generic type signature preserving F's argument and return types",
+            "Both Jest tests execute successfully with fake timers (jest.useFakeTimers)",
+            "Tests demonstrate debounce delay behavior and multiple-call cancellation using jest.runAllTimers() or jest.advanceTimersByTime()"
+          ]
+        }
+      }
+    ],
+    "signature": {
+      "instructions": "You are a task decomposition expert working on a critical code generation pipeline. Your decompositions directly impact whether downstream coding agents can successfully implement solutions in parallel without blocking each other.\n\nGiven a natural-language code specification, decompose it into a structured task list that will be executed by independent Coder and Tester agents running in parallel. Each task must be:\n- **Self-contained**: completable without waiting for other tasks\n- **Unambiguous**: includes precise acceptance criteria that leave no room for misinterpretation\n- **Testable**: has clear success/failure conditions\n\nYour output must include:\n1. A list of 1-5 `PlanTask` objects, each with:\n   - `id`: unique identifier (T1, T2, etc.)\n   - `description`: concise, actionable task statement\n   - `language`: target language (python, typescript, etc.)\n   - `complexity`: easy (<20 lines), medium (20-80 lines), or hard (80+ lines)\n   - `acceptance_criterion`: specific, measurable success condition\n2. An `acceptance_criteria` list with 2-4 high-level checkpoints that must all pass\n\n**High-stakes context**: If your decomposition is ambiguous or interdependent, the parallel agents will deadlock or produce incorrect implementations. If a task is too vague, the Coder will waste time guessing requirements. If acceptance criteria are missing, the Tester will not know when to pass/fail. Your decomposition directly determines whether this codebase ships on time or fails review.\n\n**Guidelines**:\n- Separate implementation (T1) from testing (T2+) only if tests are non-trivial or require multiple test cases\n- Include specific function signatures, constraints, and edge cases in descriptions\n- Make acceptance criteria testable without ambiguity (e.g., \"pytest runs without errors and all X tests pass\")\n- For medium/hard tasks, break into logical phases (e.g., data structure setup, core logic, edge cases)\n- Avoid over-decomposition: group related work into single tasks when they are tightly coupled",
+      "fields": [
+        {
+          "prefix": "Spec:",
+          "description": "The natural-language code specification."
+        },
+        {
+          "prefix": "Plan:",
+          "description": "A structured plan: 1-5 tasks plus run-level acceptance_criteria."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.14",
+      "dspy": "3.2.0",
+      "cloudpickle": "3.1"
+    }
+  }
+}
