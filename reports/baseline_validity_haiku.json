@@ -1,0 +1,110 @@
+{
+  "model": "anthropic/claude-haiku-4-5",
+  "metric": "validity",
+  "n_specs": 10,
+  "mean_score": 1.0,
+  "pass_rate": 1.0,
+  "total_latency_ms": 53,
+  "per_spec": [
+    {
+      "id": "easy/python/clamp",
+      "difficulty": "easy",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 44
+    },
+    {
+      "id": "easy/python/is_palindrome",
+      "difficulty": "easy",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 1
+    },
+    {
+      "id": "easy/typescript/chunk",
+      "difficulty": "easy",
+      "language": "typescript",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 0
+    },
+    {
+      "id": "medium/python/lru_cache",
+      "difficulty": "medium",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 4,
+      "error": null,
+      "latency_ms": 1
+    },
+    {
+      "id": "medium/typescript/debounce",
+      "difficulty": "medium",
+      "language": "typescript",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 3,
+      "error": null,
+      "latency_ms": 1
+    },
+    {
+      "id": "medium/python/flatten",
+      "difficulty": "medium",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 4,
+      "error": null,
+      "latency_ms": 0
+    },
+    {
+      "id": "medium/javascript/groupBy",
+      "difficulty": "medium",
+      "language": "javascript",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 0
+    },
+    {
+      "id": "hard/python/topological_sort",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 5,
+      "error": null,
+      "latency_ms": 0
+    },
+    {
+      "id": "hard/python/rate_limiter",
+      "difficulty": "hard",
+      "language": "python",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 5,
+      "error": null,
+      "latency_ms": 0
+    },
+    {
+      "id": "hard/typescript/event_emitter",
+      "difficulty": "hard",
+      "language": "typescript",
+      "ok": true,
+      "score": 1.0,
+      "n_tasks": 2,
+      "error": null,
+      "latency_ms": 0
+    }
+  ]
+}
