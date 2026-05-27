@@ -117,6 +117,22 @@ python scripts/benchmark_compare.py
 - Reflector exemplar-anchored failure-class labels for deterministic cross-run classification
 - Code-level self-improvement (extension of the Reflector pattern from prompt edits to source patches, with sandbox verification)
 
+## Scope / Known limits
+
+**In scope.** A self-improvement layer that reads production failure traces (Langfuse), classifies failure modes via a Reflector agent, runs DSPy/MIPROv2 to compile candidate prompts, and enforces a held-out decision criterion. End-to-end working demo with a documented negative result on the Planner module.
+
+**Known limits.**
+
+- Held-out benchmark is small (5 specs). Directionally informative but high variance; expand to 30+ before treating individual deltas as definitive.
+- MIPRO compile is rate-limit-affected on Anthropic free tier; some trials degrade in quality through no fault of the optimizer. Production runs need paid-tier quota.
+- The Reflector currently classifies error observations from a single source project — generalizing across multiple source projects needs domain-specific failure taxonomies.
+- Single-prompt MIPRO optimization is sensitive to task-class overfit (the Day 9 finding). Multi-prompt routing per task class (roadmap item) is likely the correct shape.
+
+## Further reading
+
+- `reports/` — actual MIPRO compile evidence, scorecards, before/after deltas tracked per run.
+- Companion repo: [CodeOrch](https://github.com/iamr1ddl3/codeorch) — the production system EvoAgent reads from and improves.
+
 ## License
 
 MIT

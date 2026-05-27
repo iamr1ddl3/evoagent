@@ -24,3 +24,7 @@ reports/*.html
 optimized_programs/*.json
 optimized_programs/*.pkl
 !optimized_programs/planner_haiku_v1.json
+
+# Vault-internal metadata (private; do not push)
+CLAUDE.md
+.claude/
